@@ -11,13 +11,50 @@ int main(){
   {
     int a1,a2,b1,b2;
     cin >> a1 >> a2 >> b1 >> b2;
-    if((a1>b1 && a1>b2 && a2>b1 && a2>b2)){
-      cout << 4 << endl;
-    }else if((a1>b1 && a2>b2) || (a1>b2 && a2>b1)){
-      cout << 2 << endl;
+    int ans1=0;
+    int ans2=0;
+    if(a1>b1){
+      ans1++;
+    }else if(a1<b1){
+      ans1--;
     }else{
-      cout << 0 << endl;
+      ans2++;
     }
+
+    if(a2>b2){
+      ans1++;
+    }else if(a2<b2){
+      ans1--;
+    }else{
+      ans2++;
+    }
+
+    int ans3=0;
+    int ans4=0;
+    if(a1>b2){
+      ans3++;
+    }else if(a1<b2){
+      ans3--;
+    }else{
+      ans4++;
+    }
+
+    if(a2>b1){
+      ans3++;
+    }else if(a2<b1){
+      ans3--;
+    }else{
+      ans4++;
+    }
+    int ans=ans1+ans3;
+    if(ans1==1 && ans2==1){
+      ans++;
+    }
+    if(ans3==1 && ans4==1){
+      ans++;
+    }
+    if(ans<0)ans=0;
+    cout << ans << endl;
     
   }
   
