@@ -12,78 +12,43 @@ int main(){
     int n,k;
     cin >> n >> k;
     int arr[n];
-    for(int i=0; i<n; i++)cin >> arr[i];
-    int remsize=n%k;
-    if(remsize==0){
-      remsize=k;
+
+    int l=INT_MAX;
+    int r=INT_MIN;
+
+    for(int i=0; i<n; i++){
+      cin >> arr[i];
+      l=min(l, arr[i]);
+      r=max(r, arr[i]);
     }
 
-    int mid = 0;
-    if(k*2>n){
-      mid=k*2-n;
+    if(k==1){
+      cout << r << endl;
+      continue;
     }
-    int i1=n-mid;
-    i1/=2;
-    // cout << mid << " " << i1 << " " << remsize << endl;
-    int j=0;
-    int i=0;
-    map<int,int> mp;
+    int mid=(l+r)/2;
     int ans=0;
-    if(mid==0 || n<=k){
-      while(j<=n){
-        if(j-i<remsize){
-          mp[arr[j]]++;
-          j++;
-        }else if(j-i==remsize){
-          auto it = mp.begin();
-          ans = max(ans, it->first);
-          if(j==n)break;
-          mp[arr[i]]--;
-          if(mp[arr[i]]==0){
-            mp.erase(arr[i]);
-          }
-          i++;
-          mp[arr[j]]++;
-          j++;
+
+    while(l<=r){
+      mid=(l+r)/2;
+      int dp[n+1]={0};
+      dp[0]=0;
+      for(int i=1; i<=n; i++){
+        int cnt=(arr[i-1]>=mid?1:-1);
+        if(i<=k){
+          dp[i]=dp[i-1]+cnt;
+        }
+        else if(i%k==1){
+          dp[i]=max(dp[i-k], cnt);
+        }else{
+          dp[i]=max(dp[i-k], dp[i-1]+cnt);
         }
       }
-    }else{
-      while(j<=i1){
-        if(j-i<remsize){
-          mp[arr[j]]++;
-          j++;
-        }else if(j-i==remsize){
-          auto it = mp.begin();
-          ans = max(ans, it->first);
-          if(j==n)break;
-          mp[arr[i]]--;
-          if(mp[arr[i]]==0){
-            mp.erase(arr[i]);
-          }
-          i++;
-          mp[arr[j]]++;
-          j++;
-        }
-      }
-      mp.clear();
-      j=mid+i1;
-      i=mid+i1;
-      while(j<=n){
-        if(j-i<remsize){
-          mp[arr[j]]++;
-          j++;
-        }else if(j-i==remsize){
-          auto it = mp.begin();
-          ans = max(ans, it->first);
-          if(j==n)break;
-          mp[arr[i]]--;
-          if(mp[arr[i]]==0){
-            mp.erase(arr[i]);
-          }
-          i++;
-          mp[arr[j]]++;
-          j++;
-        }
+      if(dp[n]>0){
+        ans=mid;
+        l=mid+1;
+      }else{
+        r=mid-1;
       }
     }
     
