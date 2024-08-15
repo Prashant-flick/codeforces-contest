@@ -27,10 +27,10 @@ signed main(){
     int i=0;
     int j=n-1;
     while(i<j){
-      while(s[i]!='L'){
+      while(i<n && s[i]!='L'){
         i++;
       }
-      while(s[j]!='R'){
+      while(j>=0 && s[j]!='R'){
         j--;
       }
       if(i>=j){
