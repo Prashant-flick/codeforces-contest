@@ -143,8 +143,18 @@ signed main() {
                     int cnt = vec[c];
                     if(mp[b] > cnt){
                         ans = store[b];
+                        if(j+2==st.size())break;
+                        i=0;
                         for(int &v: store[b]){
-
+                            flag=solve(v, st[j+2], i, mp, store2);
+                            if(flag)break;
+                            i++;
+                        }
+                        if(flag){
+                            break;
+                        }else{
+                            int v = store2[st[j+2]][0];
+                            
                         }
                     }
                 }
