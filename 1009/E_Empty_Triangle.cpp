@@ -7,8 +7,9 @@ signed main(){
     int t;
     cin >> t;
     while(t--){
-        int n,a,x=1,y=2,z=3;
+        int n,a;
         cin >> n;
+        int x=1,y=n/2+1,z=n;
         cout << "? " << x << " " << y << " " << z << endl;
         cout.flush();
         cin >> a;
